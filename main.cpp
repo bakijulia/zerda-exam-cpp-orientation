@@ -19,16 +19,16 @@ int main(int argc, char *argv[]) {
   try {
     if (argc == 1) {
       std::cout << "No file provided.";
-    } else if (argc == 2) {
-      inputFileName = (std::string) argv[1];
-      std::cout << inputFileName << std::endl;
-      content = fileReader.readFromFileToStringLineByLine(inputFileName);
-    } else if (argc == 3 && (std::string) argv[2] == "-s") {
-      std::cout << "No shift is provided" << std::endl;
+    } else if (argc == 2 || argc == 3) {
+      std::cout << "No shift provided.";
     } else if (argc == 4 && (std::string) argv[2] == "-s") {
+      inputFileName = (std::string) argv[1];
+      content = fileReader.readFromFileToStringLineByLine(inputFileName);
       shift = atoi(argv[3]);
-      std::cout << shift << std::endl;
-      std::cout << "Decrypted content" << std::endl;
+      std::string decryptedContent = decrypter.decryptCaesarCipher(content, shift);
+      std::cout << decryptedContent;
+    } else if (argc == 5) {
+      std::cout << "Error: no output file" << std::endl;
     } else if (argc == 6 && (std::string) argv[4] == "-o") { //if every arguments provided
       inputFileName = (std::string) argv[1];
       content = fileReader.readFromFileToStringLineByLine(inputFileName);
@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
       std::string decryptedContent = decrypter.decryptCaesarCipher(content, shift);
       outputFileName = (std::string) argv[5];
       fileWriter.writeToFileFromString(outputFileName, decryptedContent);
+      std::cout << "done" << std::endl;
     }
   } catch (const char* errorMessage) {
     std::cout << "Error: " << errorMessage << std::endl;

@@ -1,8 +1,7 @@
 #include "Decrypter.h"
 #include <ctype.h>
 
-Decrypter::Decrypter() {
-}
+Decrypter::Decrypter() {}
 
 std::string Decrypter::decryptCaesarCipher(std::string input, int shift) {
   std::string result = "";
@@ -10,7 +9,7 @@ std::string Decrypter::decryptCaesarCipher(std::string input, int shift) {
     if (!isalnum(input[i]) || isdigit(input[i])) {
       result += input[i];
     } else {
-      if ((input[i] == 'z' || input[i] == 'Z') && shift > 0) {
+      if (isOverflow(input[i]) && shift > 0) {
         result += (input[i] - 26) + shift;
       } else if ((input[i] == 'a' || input[i] == 'A') && shift < 0) {
         result += (input[i] + 26) + shift;
@@ -22,6 +21,8 @@ std::string Decrypter::decryptCaesarCipher(std::string input, int shift) {
   return result;
 }
 
-Decrypter::~Decrypter() {
+bool Decrypter::isOverflow(char input) {
+  return input == 'z' || input == 'Z';
 }
 
+Decrypter::~Decrypter() {}
