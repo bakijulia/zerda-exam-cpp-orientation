@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "FileReader.h"
 #include "FileWriter.h"
+#include "Decrypter.h"
 
 int main(int argc, char *argv[]) {
   std::string inputFileName;
@@ -13,6 +14,7 @@ int main(int argc, char *argv[]) {
 
   FileReader fileReader;
   FileWriter fileWriter;
+  Decrypter decrypter;
 
   try {
     if (argc == 1) {
@@ -27,12 +29,13 @@ int main(int argc, char *argv[]) {
       shift = atoi(argv[3]);
       std::cout << shift << std::endl;
       std::cout << "Decrypted content" << std::endl;
-    } else if (argc == 6 && (std::string) argv[4] == "-o") {
+    } else if (argc == 6 && (std::string) argv[4] == "-o") { //if every arguments provided
       inputFileName = (std::string) argv[1];
       content = fileReader.readFromFileToStringLineByLine(inputFileName);
+      shift = atoi(argv[3]);
+      std::string decryptedContent = decrypter.decryptCaesarCipher(content, shift);
       outputFileName = (std::string) argv[5];
-      fileWriter.writeToFileFromString(outputFileName, content);
-      std::cout << "Decrypted program to output file to : " << outputFileName << std::endl;
+      fileWriter.writeToFileFromString(outputFileName, decryptedContent);
     }
   } catch (const char* errorMessage) {
     std::cout << "Error: " << errorMessage << std::endl;
