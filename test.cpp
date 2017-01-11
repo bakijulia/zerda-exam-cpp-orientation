@@ -49,4 +49,22 @@ TEST_CASE("Decrypter.decryptCaesarCipher() should return 'x' from 'a', if shift 
   REQUIRE(decrypted == "x");
 }
 
+TEST_CASE("Decrypter.decryptCaesarCipher() should return 'C' from 'Z', if shift 3 ") {
+  Decrypter decrypter;
+  std::string input = "Z";
+  std::string decrypted = "";
+  int shift = 3;
+  decrypted = decrypter.decryptCaesarCipher(input, shift);
+  REQUIRE(decrypted == "C");
+}
+
+TEST_CASE("Decrypter.decryptCaesarCipher() should return 'X' from 'A', if shift -3 ") {
+  Decrypter decrypter;
+  std::string input = "A";
+  std::string decrypted = "";
+  int shift = -3;
+  decrypted = decrypter.decryptCaesarCipher(input, shift);
+  REQUIRE(decrypted == "X");
+}
+
 #endif

@@ -10,9 +10,9 @@ std::string Decrypter::decryptCaesarCipher(std::string input, int shift) {
     if (!isalnum(input[i]) || isdigit(input[i])) {
       result += input[i];
     } else {
-      if (input[i] == 'z' && shift > 0) {
+      if ((input[i] == 'z' || input[i] == 'Z') && shift > 0) {
         result += (input[i] - 26) + shift;
-      } else if (input[i] == 'a' && shift < 0) {
+      } else if ((input[i] == 'a' || input[i] == 'A') && shift < 0) {
         result += (input[i] + 26) + shift;
       } else {
         result += input[i] + shift;
