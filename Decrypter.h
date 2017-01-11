@@ -5,7 +5,8 @@
 
 class Decrypter {
 private:
-  bool isOverflow(char);
+  bool isOverflowBack(char);
+  bool isOverflowUp(char);
 public:
   Decrypter();
   std::string decryptCaesarCipher(std::string, int shift);
